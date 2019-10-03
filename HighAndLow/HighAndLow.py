@@ -13,9 +13,16 @@ class Dealer:
 
 
 class Agent:
-    def __init__(self):
+    def __init__(self, p_type=0):
         # 行動計画を生成　0 = 低い, 1 = 高い, 2 = ランダム
-        self.act_plan = [1, 1, 1, 1, 1, 1, 2, 0, 0, 0, 0, 0, 0]
+        if p_type == 0:
+            self.act_plan = [1, 1, 1, 1, 1, 1, 2, 0, 0, 0, 0, 0, 0]
+        elif p_type == 1:
+            self.act_plan = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
+        elif p_type == 2:
+            self.act_plan = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+        elif p_type == 3:
+            self.act_plan = [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2]
 
     def predict(self, open_card):
         plan = self.act_plan[open_card - 1]
