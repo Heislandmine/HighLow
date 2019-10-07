@@ -13,6 +13,6 @@ for i in range(0, itr):
     result.append(hl.high_and_low(dl, ag))
 
 f = open('../result.csv', 'w')
-writer = csv.writer(f, lineterminator="/n")
+writer = csv.writer(f, lineterminator="\n")
 writer.writerow(result)
 f.close()
