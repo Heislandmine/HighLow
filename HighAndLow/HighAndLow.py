@@ -41,8 +41,19 @@ class HighAndLow:
         self.next_card = 0
         self.result = 0
         self.eval_result = 0
+        self.record = []
         self.dl = None
         self.ag = None
+
+    def csv_record(self, ag):
+        record = []
+        record.append(self.count + 1)
+        record.append(self.open_card)
+        record.append(self.next_card)
+        record.append(ag.predict_num)
+        record.append(self.eval_result)
+        self.record.append(record.copy())
+
 
     def card_comp(self, c_card, n_card):
         if c_card < n_card:
@@ -54,7 +65,6 @@ class HighAndLow:
 
     def eval(self, p_result, result):
         if p_result == result:
-            self.count += 1
             self.eval_result = 0
         else:
             self.eval_result = 1
@@ -67,22 +77,27 @@ class HighAndLow:
             self.card_comp(self.open_card, self.next_card)
 
             if self.result == 2:
+                self.eval_result = self.result
+                self.csv_record(ag)
                 self.open_card = self.next_card
             else:
                 self.eval(ag.predict_num, self.result)
                 if self.eval_result == 1:
+                    self.csv_record(ag)
                     break
                 else:
+                    self.csv_record(ag)
                     self.open_card = self.next_card
 
             if len(dl.deck) == 0:
                 break
 
-    def high_and_low(self, dl, ag):
+    def high_and_low(self, dl, ag, count):
         self.dl = dl
         self.ag = ag
+        self.count = count
         first_card = dl.draw_card()
         self.play_game(self.dl, self.ag, first_card)
 
-        return self.count
+        return self.record
 
