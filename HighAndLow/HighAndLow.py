@@ -44,9 +44,6 @@ class HighAndLow:
         self.dl = None
         self.ag = None
 
-    def open_first_card(self, dl):
-        return dl.draw_card()
-
     def card_comp(self, c_card, n_card):
         if c_card < n_card:
             self.result = 1
